@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import TabNav from './app/TabNav';
+import LoginScreen from './app/screens/LoginScreen';
+import TaskDetailsScreen from './app/screens/TaskDetailsScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name='Login'
+                    component={LoginScreen}
+                    options={{ headerShown: false }}
+                />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+                <Stack.Screen name='Main' component={TabNav} options={{ headerShown: false }} />
+                <Stack.Screen
+                    name='TaskDetails'
+                    component={TaskDetailsScreen}
+                    options={{ title: 'Szczegóły Zadania' }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
