@@ -4,7 +4,7 @@ import { Switch } from 'react-native-elements';
 import { useTasks } from '../TaskContext';
 
 function TaskDetailsScreen({ route, navigation }) {
-    const { taskId, email,status: initialStatus } = route.params || {};
+    const { taskId, status: initialStatus } = route.params || {};
     const [status,setStatus] = useState(initialStatus);
 
     const {updateTaskStatus} = useTasks();
@@ -18,7 +18,6 @@ function TaskDetailsScreen({ route, navigation }) {
 
     return (
         <View>
-            <Text>Email {email}</Text>
             <Text>Szczegóły zadania</Text>
             <Text>ID zadania: {taskId}</Text>
             <Text>Progress zadania: {status}</Text>

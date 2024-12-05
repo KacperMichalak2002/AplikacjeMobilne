@@ -1,28 +1,42 @@
 import React from 'react';
-import { View, Text, Button, Alert, ScrollView } from 'react-native';
+import { View, Alert, ScrollView } from 'react-native';
 import { ListItem, Icon, FAB } from 'react-native-elements';
-import { useState } from 'react';
 import { useTasks } from '../TaskContext';
+
 function TaskListScreen({ route, navigation }) {
     const { email } = route.params || {};
+    const { tasks: list, deleteTask, addTask } = useTasks();
+
     const handleTaskPress = (taskId, status) => {
         navigation.navigate('TaskDetails', { taskId, email, status });
     };
 
-    const { tasks: list, setTasks } = useTasks();
-
     const handleAddTask = () => {
-        const newTask = {
-            name: `Zadanie ${list.length + 1}`,
-            taskId: list.length + 1,
-            status: 'inProgress'
-        };
-
-        setTasks([...list, newTask]);
+        const newTaskName = `Zadanie ${list.length + 1}`;
+        addTask(newTaskName);
         Alert.alert('Dodano nowe zadanie!');
     };
 
-    const getStatusIcon = status => {
+    const handleDeleteTask = (taskId) => {
+        Alert.alert(
+            'Potwierdzenie',
+            'Czy na pewno chcesz usunąć to zadanie?',
+            [
+                { text: 'Anuluj', style: 'cancel' },
+                {
+                    text: 'Usuń',
+                    onPress: () => {
+                        deleteTask(taskId);
+                        Alert.alert('Zadanie zostało usunięte');
+                    },
+                    style: 'destructive',
+                },
+            ],
+            { cancelable: true }
+        );
+    };
+
+    const getStatusIcon = (status) => {
         switch (status) {
             case 'completed':
                 return { name: 'check-circle', color: 'green' };
@@ -52,17 +66,26 @@ function TaskListScreen({ route, navigation }) {
                                 color={getStatusIcon(item.status).color}
                                 containerStyle={{ marginLeft: 10 }}
                             />
-                            <ListItem.Chevron color='gray' size={20} />
+                            <ListItem.Chevron color="gray" size={20} />
                         </ListItem.Content>
+                        <Icon
+                            name="delete"
+                            color="red"
+                            onPress={() => handleDeleteTask(item.taskId)}
+                        />
                     </ListItem>
                 ))}
             </ScrollView>
             <FAB
-                title='+'
-                placement='right'
-                color='#0096FF'
+                title="+"
+                placement="right"
+                color="#0096FF"
                 onPress={handleAddTask}
-                style={{ position: 'absolute', bottom: 5, right: 5 }}
+                style={{
+                    position: 'absolute',
+                    bottom: -70,
+                    right:  10
+                }}
             />
         </View>
     );
