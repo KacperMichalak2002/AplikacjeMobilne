@@ -12,11 +12,29 @@ async function save(key, value) {
     }
 }
 
+async function get(key) {
+    try {
+        const value = await SecureStore.getItemAsync(key);
+        console.log(`Odczytano ${key}: ${value}`);
+        return value;
+    } catch (error) {
+        console.error(`Błąd podczas odczytywania ${key}:`, error);
+        throw new Error('Nie udało się odczytać danych');
+    }
+}
+
+const handleRetrieveSessionToken = async () => {
+    try {
+        const token = await get('sessionToken');
+        Alert.alert('Token Sesji', token || 'Brak tokenu');
+    } catch (error) {
+        Alert.alert('Błąd', 'Nie udało się odczytać tokenu sesji');
+    }
+};
+
 function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-
 
     const handleLogin = async () => {
         if (email === '' || password === '') {
@@ -25,6 +43,8 @@ function LoginScreen({ navigation }) {
         }
 
         try {
+            const sessionToken = `token-${Date.now()}`;
+            await save('sessionToken', sessionToken);
             await save('login', email);
             await save('password', password);
             Alert.alert('Sukces', 'Dane zostały zapisane!');
@@ -33,7 +53,6 @@ function LoginScreen({ navigation }) {
             Alert.alert('Błąd', 'Nie udało się zapisać danych');
         }
     };
-    
 
     return (
         <View style={styles.container}>
@@ -55,6 +74,7 @@ function LoginScreen({ navigation }) {
                 autoCapitalize='none'
             />
             <Button title='Login' onPress={handleLogin} />
+            <Button title='Pobierz Token Sesji' onPress={handleRetrieveSessionToken} />
         </View>
     );
 }

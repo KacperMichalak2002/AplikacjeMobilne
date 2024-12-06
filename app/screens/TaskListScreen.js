@@ -17,7 +17,7 @@ function TaskListScreen({ route, navigation }) {
         Alert.alert('Dodano nowe zadanie!');
     };
 
-    const handleDeleteTask = (taskId) => {
+    const handleDeleteTask = taskId => {
         Alert.alert(
             'Potwierdzenie',
             'Czy na pewno chcesz usunąć to zadanie?',
@@ -29,14 +29,14 @@ function TaskListScreen({ route, navigation }) {
                         deleteTask(taskId);
                         Alert.alert('Zadanie zostało usunięte');
                     },
-                    style: 'destructive',
-                },
+                    style: 'destructive'
+                }
             ],
             { cancelable: true }
         );
     };
 
-    const getStatusIcon = (status) => {
+    const getStatusIcon = status => {
         switch (status) {
             case 'completed':
                 return { name: 'check-circle', color: 'green' };
@@ -66,25 +66,25 @@ function TaskListScreen({ route, navigation }) {
                                 color={getStatusIcon(item.status).color}
                                 containerStyle={{ marginLeft: 10 }}
                             />
-                            <ListItem.Chevron color="gray" size={20} />
+                            <ListItem.Chevron color='gray' size={20} />
                         </ListItem.Content>
                         <Icon
-                            name="delete"
-                            color="red"
+                            name='delete'
+                            color='red'
                             onPress={() => handleDeleteTask(item.taskId)}
                         />
                     </ListItem>
                 ))}
             </ScrollView>
             <FAB
-                title="+"
-                placement="right"
-                color="#0096FF"
+                title='+'
+                placement='right'
+                color='#0096FF'
                 onPress={handleAddTask}
                 style={{
                     position: 'absolute',
                     bottom: -70,
-                    right:  10
+                    right: 10
                 }}
             />
         </View>
