@@ -47,7 +47,7 @@ function LoginScreen({ navigation }) {
             await save('sessionToken', sessionToken);
             await save('login', email);
             await save('password', password);
-            Alert.alert('Sukces', 'Dane zostały zapisane!');
+           // Alert.alert('Sukces', 'Dane zostały zapisane!');
             navigation.navigate('Main');
         } catch (error) {
             Alert.alert('Błąd', 'Nie udało się zapisać danych');

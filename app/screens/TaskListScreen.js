@@ -4,11 +4,10 @@ import { ListItem, Icon, FAB } from 'react-native-elements';
 import { useTasks } from '../TaskContext';
 
 function TaskListScreen({ route, navigation }) {
-    const { email } = route.params || {};
     const { tasks: list, deleteTask, addTask } = useTasks();
 
-    const handleTaskPress = (taskId, status) => {
-        navigation.navigate('TaskDetails', { taskId, email, status });
+    const handleTaskPress = (task) => {
+        navigation.navigate('TaskDetails', {task});
     };
 
     const handleAddTask = () => {
@@ -38,9 +37,9 @@ function TaskListScreen({ route, navigation }) {
 
     const getStatusIcon = status => {
         switch (status) {
-            case 'completed':
+            case 'Completed':
                 return { name: 'check-circle', color: 'green' };
-            case 'inProgress':
+            case 'In Progress':
                 return { name: 'pending', color: 'orange' };
             default:
                 return { name: 'help', color: 'red' };
@@ -53,14 +52,14 @@ function TaskListScreen({ route, navigation }) {
                 {list.map((item, i) => (
                     <ListItem
                         key={i}
-                        onPress={() => handleTaskPress(item.taskId, item.status)}
+                        onPress={() => handleTaskPress(item)}
                         bottomDivider
                         containerStyle={{ flexDirection: 'row', alignItems: 'center' }}
                     >
                         <ListItem.Content
                             style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}
                         >
-                            <ListItem.Title>{item.name}</ListItem.Title>
+                            <ListItem.Title>{item.title}</ListItem.Title>
                             <Icon
                                 name={getStatusIcon(item.status).name}
                                 color={getStatusIcon(item.status).color}
@@ -71,7 +70,7 @@ function TaskListScreen({ route, navigation }) {
                         <Icon
                             name='delete'
                             color='red'
-                            onPress={() => handleDeleteTask(item.taskId)}
+                            onPress={() => handleDeleteTask(item.id)}
                         />
                     </ListItem>
                 ))}

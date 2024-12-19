@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Zakończyć raport",
+      "description": "Raport do klienta X",
+      "status": "Completed",
+      "dueDate": "2024-12-01"
+    },
+    {
+      "id": "1635",
+      "title": "Zadanie 2",
+      "description": "",
+      "status": "In Progress",
+      "dueDate": "2024-12-18"
+    },
+    {
+      "id": "ca72",
+      "title": "Zadanie 3",
+      "description": "",
+      "status": "Completed",
+      "dueDate": "2024-12-18"
+    }
+  ]
+}

@@ -8,8 +8,8 @@ function StatisticsScreen({ route }) {
     const { dateRange } = route.params || {};
     const { tasks: list, setTasks } = useTasks();
 
-    const completedTasks = list.filter(task => task.status === 'completed').length;
-    const inProgressTasks = list.filter(task => task.status === 'inProgress').length;
+    const completedTasks = list.filter(task => task.status === 'Completed').length;
+    const inProgressTasks = list.filter(task => task.status === 'In Progress').length;
 
     const totalTasks = list.length;
     const completedPercentage = totalTasks ? (completedTasks / totalTasks) * 100 : 0;
