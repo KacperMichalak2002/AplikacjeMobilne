@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const TaskContext = createContext();
 
-const API_URL = 'http://192.168.0.14:3000/tasks';
+const API_URL = 'http://81.26.20.109:3000/tasks';
 
 export const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState([]);
@@ -17,7 +17,7 @@ export const TaskProvider = ({ children }) => {
         }
     };
 
-    const addTask = async (taskName) => {
+    const addTask = async taskName => {
         try {
             const newTask = {
                 title: taskName,
@@ -26,7 +26,7 @@ export const TaskProvider = ({ children }) => {
                 dueDate: new Date().toISOString().split('T')[0]
             };
             const response = await axios.post(API_URL, newTask);
-            setTasks((prevTasks) => [...prevTasks, response.data]);
+            setTasks(prevTasks => [...prevTasks, response.data]);
         } catch (error) {
             console.error('Błąd dodawania taska', error);
         }
@@ -34,14 +34,12 @@ export const TaskProvider = ({ children }) => {
 
     const updateTaskStatus = async (taskId, newStatus) => {
         try {
-            const taskToUpdate = tasks.find((task) => task.id === taskId);
+            const taskToUpdate = tasks.find(task => task.id === taskId);
             if (taskToUpdate) {
                 const updatedTask = { ...taskToUpdate, status: newStatus };
                 await axios.put(`${API_URL}/${taskId}`, updatedTask);
-                setTasks((prevTasks) =>
-                    prevTasks.map((task) =>
-                        task.id === taskId ? updatedTask : task
-                    )
+                setTasks(prevTasks =>
+                    prevTasks.map(task => (task.id === taskId ? updatedTask : task))
                 );
             }
         } catch (error) {
@@ -49,10 +47,10 @@ export const TaskProvider = ({ children }) => {
         }
     };
 
-    const deleteTask = async (taskId) => {
+    const deleteTask = async taskId => {
         try {
             await axios.delete(`${API_URL}/${taskId}`);
-            setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+            setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
         } catch (error) {
             console.error('Błąd usuwania taska', error);
         }

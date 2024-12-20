@@ -44,10 +44,12 @@ function LoginScreen({ navigation }) {
 
         try {
             const sessionToken = `token-${Date.now()}`;
-            await save('sessionToken', sessionToken);
-            await save('login', email);
-            await save('password', password);
-           // Alert.alert('Sukces', 'Dane zostały zapisane!');
+            const loginInfo = {
+                login: email,
+                password: password,
+                sessionToken: sessionToken
+            };
+            await save('loginInfo', JSON.stringify(loginInfo));
             navigation.navigate('Main');
         } catch (error) {
             Alert.alert('Błąd', 'Nie udało się zapisać danych');
