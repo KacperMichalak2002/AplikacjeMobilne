@@ -12,14 +12,26 @@
       "title": "Zadanie 3",
       "description": "",
       "status": "Completed",
-      "dueDate": "2024-12-18"
+      "dueDate": "2024-12-18",
+      "urgency": "Normal"
     },
     {
       "id": "0d8b",
       "title": "Zadanie 4",
       "description": "",
       "status": "Completed",
-      "dueDate": "2024-12-20"
+      "dueDate": "2024-12-20",
+      "imageUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAplikacjeMobilne-9ca83541-74ed-4198-a29a-81b630065712/ImagePicker/dc08d20e-9fdb-4cc6-970c-1e66bff0efd6.jpeg",
+      "urgency": "Normal"
+    },
+    {
+      "id": "893a",
+      "title": "Zadanie 4",
+      "description": "",
+      "status": "In Progress",
+      "dueDate": "2025-01-23",
+      "imageUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FAplikacjeMobilne-9ca83541-74ed-4198-a29a-81b630065712/ImagePicker/c2886caa-dcc6-48f0-975c-7c827cc396b1.jpeg",
+      "urgency": "Urgent"
     }
   ]
 }
